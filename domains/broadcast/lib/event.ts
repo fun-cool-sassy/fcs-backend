@@ -1,5 +1,5 @@
 interface Event {
-  name: string
+  name: string;
 }
 
 export default Event;
