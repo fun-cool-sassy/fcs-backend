@@ -25,7 +25,13 @@ function typeorm(
         context.database.connection = connection;
       }
 
-      await next();
+      await connection.transaction(async (entityManager) => {
+        context.containers.context.bind(
+          TypeormToken.EntityManager,
+          () => entityManager
+        );
+        await next();
+      });
     }
   );
 }
