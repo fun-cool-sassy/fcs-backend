@@ -23,6 +23,7 @@
     "@cheeket/winston": "^1.0.1",
     "@course-design/decorators": "^1.0.1",
     "@course-design/types": "^1.0.2",
+    "@fcs/broadcast": "^1.0.0",
     "@fcs/database-entity": "^1.0.0",
     "cheeket": "^2.3.7",
     "clean-deep": "^3.4.0",
