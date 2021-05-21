@@ -1,4 +1,4 @@
-import { inContainerScope } from "cheeket";
+import { inContainerScope, inSingletonScope } from "cheeket";
 import * as winston from "winston";
 import {
   consoleTransportProvider,
@@ -14,22 +14,22 @@ import childLoggerProvider from "./child-logger.provider";
 import State from "../../../state";
 
 class LoggerDependencyInitializer implements DependencyInitializer {
-  private readonly errorFileProvider = inContainerScope(
+  private readonly errorFileProvider = inSingletonScope(
     fileTransportProvider({
       filename: "logs/error.log",
       level: "error",
     })
   );
 
-  private readonly combinedFileProvider = inContainerScope(
+  private readonly combinedFileProvider = inSingletonScope(
     fileTransportProvider({ filename: "logs/combined.log" })
   );
 
-  private readonly simpleConsoleTransportProvider = inContainerScope(
+  private readonly simpleConsoleTransportProvider = inSingletonScope(
     consoleTransportProvider({ format: winston.format.simple() })
   );
 
-  private readonly rootLoggerProvider = inContainerScope(
+  private readonly rootLoggerProvider = inSingletonScope(
     loggerProvider(LoggerToken.Transport, {
       level: process.env.NODE_ENV === "production" ? "info" : "debug",
       format: winston.format.combine(

@@ -13,7 +13,7 @@ import serialize from "koa-serialize";
 import expose from "koa-expose";
 
 import routes from "./routes";
-import { logger, typeorm, TypeormConfiguration } from "./middleware";
+import { logger, socketIo, typeorm, TypeormConfiguration } from "./middleware";
 
 export interface ApplicationConfiguration {
   port?: number;
@@ -33,6 +33,7 @@ async function bootstrap(config: ApplicationConfiguration): Promise<Server> {
 
   application.use(logger());
   application.use(typeorm(config.database));
+  application.use(socketIo());
 
   application.use(bodyParser());
   application.use(camelCase(query()));

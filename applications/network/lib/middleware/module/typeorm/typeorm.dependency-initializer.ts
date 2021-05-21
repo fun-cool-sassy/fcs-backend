@@ -1,7 +1,7 @@
 import { ContainerContext, DependencyInitializer } from "@cheeket/koa";
 import { ParameterizedContext } from "koa";
 import { override } from "@course-design/decorators";
-import { inContainerScope, interfaces } from "cheeket";
+import { inContainerScope, inSingletonScope, interfaces } from "cheeket";
 import { Connection, ConnectionOptions } from "typeorm";
 import State from "../../../state";
 import connectionProvider from "./connection.provider";
@@ -13,7 +13,7 @@ class TypeormDependencyInitializer implements DependencyInitializer {
   private readonly connectionProvider: interfaces.Provider<Connection>;
 
   constructor(config: TypeormConfiguration) {
-    this.connectionProvider = inContainerScope(connectionProvider(config));
+    this.connectionProvider = inSingletonScope(connectionProvider(config));
   }
 
   @override
