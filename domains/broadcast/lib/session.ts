@@ -1,4 +1,4 @@
-interface Session {
+interface Session extends Record<string, unknown> {
   id: string;
 }
 
