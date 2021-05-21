@@ -13,11 +13,12 @@ import serialize from "koa-serialize";
 import expose from "koa-expose";
 
 import routes from "./routes";
-import { logger } from "./middleware";
+import { logger, typeorm, TypeormConfiguration } from "./middleware";
 
 export interface ApplicationConfiguration {
   port?: number;
   container?: interfaces.Container;
+  database: TypeormConfiguration;
 }
 
 async function bootstrap(config: ApplicationConfiguration): Promise<Server> {
@@ -31,6 +32,7 @@ async function bootstrap(config: ApplicationConfiguration): Promise<Server> {
   application.use(dependency(rootContainer, { maxListeners: 1000 }));
 
   application.use(logger());
+  application.use(typeorm(config.database));
 
   application.use(bodyParser());
   application.use(camelCase(query()));
