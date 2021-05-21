@@ -32,6 +32,7 @@ function typeorm(
         );
         await next();
       });
+      context.containers.context.unbind(TypeormToken.EntityManager);
     }
   );
 }
