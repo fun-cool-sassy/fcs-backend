@@ -1,7 +1,7 @@
-import {interfaces} from "cheeket";
-import {Server as SocketServer, Server} from "socket.io";
+import { interfaces } from "cheeket";
+import { Server as SocketServer, Server } from "socket.io";
 import http from "http";
-import {Token as KoaToken} from "@cheeket/koa";
+import { Token as KoaToken } from "@cheeket/koa";
 
 function serverProvider(): interfaces.Provider<Server> {
   return async (context) => {

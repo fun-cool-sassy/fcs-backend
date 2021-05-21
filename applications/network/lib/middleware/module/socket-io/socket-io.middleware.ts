@@ -1,5 +1,5 @@
 import Application from "koa";
-import {use} from "@cheeket/koa";
+import { use } from "@cheeket/koa";
 
 import Context from "../../../context";
 import State from "../../../state";
