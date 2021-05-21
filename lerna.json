@@ -1,0 +1,9 @@
+{
+  "packages": [
+    "packages/*",
+    "commons/*",
+    "domains/*",
+    "applications/*"
+  ],
+  "version": "1.0.0"
+}
