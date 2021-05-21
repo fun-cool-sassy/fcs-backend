@@ -19,6 +19,7 @@
     "prepublishOnly": "cross-env NODE_ENV=production npm run build"
   },
   "dependencies": {
+    "uniqid": "^5.3.0",
     "@cheeket/koa": "^2.1.0",
     "@cheeket/winston": "^1.0.1",
     "@course-design/decorators": "^1.0.1",
@@ -39,10 +40,17 @@
     "koa-serialize": "^1.0.1",
     "koa-verify": "^1.0.0",
     "koa-verify-joi": "^1.0.0",
+    "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
+    "sqlite3": "^5.0.2",
+    "typeorm": "^0.2.32",
+    "@fcs/database-entity": "^1.0.0",
+    "typeorm-naming-strategies": "^2.0.0",
+    "clean-deep": "^3.4.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "@types/uniqid": "^5.3.0",
     "@types/koa": "^2.13.0",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-qs": "^2.0.0",
