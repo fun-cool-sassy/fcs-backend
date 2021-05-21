@@ -1,4 +1,4 @@
-import {inContainerScope, inSingletonScope} from "cheeket";
+import { inContainerScope, inSingletonScope } from "cheeket";
 import * as winston from "winston";
 import {
   consoleTransportProvider,
