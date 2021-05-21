@@ -3,6 +3,8 @@ import { LoggerOptions } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 import cleanDeep from "clean-deep";
 import { entities } from "@fcs/database-entity";
+import path from "path";
+import uniqid from "uniqid";
 
 import { ApplicationConfiguration } from "./bootstrap";
 
@@ -19,7 +21,8 @@ const databaseConfig = {
 
   password: process.env.DATABASE_PASSWORD,
 
-  database: process.env.DATABASE_DATABASE,
+  database:
+    process.env.DATABASE_DATABASE ?? path.join(__dirname, `../tmp/${uniqid()}`),
 
   dropSchema: Boolean(process.env.DATABASE_DROP_SCHEMA) ?? false,
 

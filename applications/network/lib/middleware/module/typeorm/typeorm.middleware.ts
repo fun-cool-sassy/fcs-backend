@@ -15,7 +15,9 @@ function typeorm(
     new TypeormDependencyInitializer(config),
     async (context, next) => {
       // eslint-disable-next-line @typescript-eslint/no-shadow
-      const connection = await context.resolve(TypeormToken.Connection);
+      const connection = await context.containers.root.resolve(
+        TypeormToken.Connection
+      );
       if (context.database == null) {
         context.database = {
           connection,

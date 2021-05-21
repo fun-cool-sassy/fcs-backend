@@ -1,6 +1,7 @@
 import "reflect-metadata";
 
 import { Server } from "net";
+import { Server as SocketServer } from "socket.io";
 import { Container, interfaces } from "cheeket";
 import dependency from "@cheeket/koa";
 import Application from "koa";
@@ -12,6 +13,7 @@ import requestId from "koa-requestid";
 import serialize from "koa-serialize";
 import expose from "koa-expose";
 
+import * as http from "http";
 import routes from "./routes";
 import { logger, typeorm, TypeormConfiguration } from "./middleware";
 
@@ -45,6 +47,9 @@ async function bootstrap(config: ApplicationConfiguration): Promise<Server> {
   application.use(serialize(response("body")));
   application.use(snakeCase(response("body")));
   application.use(expose(query("fields")));
+
+  const server = http.createServer(application.callback());
+  const io = new SocketServer(server);
 
   return application.listen(config.port);
 }
