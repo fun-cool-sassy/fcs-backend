@@ -32,9 +32,12 @@ function typeorm(
           TypeormToken.EntityManager,
           () => entityManager
         );
-        await next();
+        try {
+          await next();
+        } finally {
+          context.containers.context.unbind(TypeormToken.EntityManager);
+        }
       });
-      context.containers.context.unbind(TypeormToken.EntityManager);
     }
   );
 }

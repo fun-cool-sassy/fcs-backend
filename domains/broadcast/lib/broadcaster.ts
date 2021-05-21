@@ -2,7 +2,7 @@ import { Server, Namespace } from "socket.io";
 import Session from "./session";
 import Event from "./event";
 
-class BroadcastStations {
+class Broadcaster {
   private readonly sessions = new Map<string, Session>();
 
   private readonly namespace: Namespace;
@@ -31,4 +31,4 @@ class BroadcastStations {
   }
 }
 
-export default BroadcastStations;
+export default Broadcaster;
