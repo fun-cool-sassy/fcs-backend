@@ -1,7 +1,7 @@
 import supertest from "supertest";
 import { camelCase } from "object-change-case";
 import uniqid from "uniqid";
-import { PlainArticle } from "@fcs/entity";
+import { Location, PlainArticle } from "@fcs/entity";
 import { ArticleCreateForm } from "@fcs/article";
 
 import createRequest from "../create-request";
@@ -55,6 +55,25 @@ describe("GET /articles", () => {
 
     const result = await request
       .get("/articles")
+      .set("Authorization", authorization)
+      .expect(200);
+
+    const articles = camelCase(result.body) as PlainArticle[];
+    expect(articles.length).not.toBeUndefined();
+  });
+
+  test("success: with location", async () => {
+    await createArticle(request, authorization);
+
+    const far = 1;
+    const location: Location = {
+      longitude: 0,
+      latitude: 0,
+    };
+    const result = await request
+      .get(
+        `/articles?far=${far}&longitude=${location.longitude}&latitude=${location.latitude}`
+      )
       .set("Authorization", authorization)
       .expect(200);
 
