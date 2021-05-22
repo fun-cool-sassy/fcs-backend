@@ -20,7 +20,7 @@ class Authenticator {
   async createAccessToken(request: SignInRequest): Promise<Token> {
     const { username, password } = request;
 
-    const user = await this.userRepository.findOneByUsernameOfFail(username);
+    const user = await this.userRepository.findOneByUsernameOrFail(username);
     const encodedPassword = this.passwordEncoder.encode(password);
 
     if (user.password !== encodedPassword) {

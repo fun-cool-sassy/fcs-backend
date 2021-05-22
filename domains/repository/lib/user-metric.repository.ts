@@ -12,7 +12,7 @@ class UserMetricRepository extends Repository<UserMetric> {
     return this.findOne({ userId });
   }
 
-  findOneByUserIdOfFail(userId: string): Promise<UserMetric> {
+  findOneByUserIdOrFail(userId: string): Promise<UserMetric> {
     return this.findOneOrFail({ userId });
   }
 }
