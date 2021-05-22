@@ -4,6 +4,7 @@ import { override } from "@course-design/decorators";
 import { inContainerScope } from "cheeket";
 import {
   ArticleRepository,
+  UserMetricRepository,
   UserRankRepository,
   UserRepository,
 } from "@fcs/repository";
@@ -20,6 +21,10 @@ class RepositoryDependencyInitializer implements DependencyInitializer {
 
   private readonly articleRepositoryProvider = inContainerScope(
     repositoryProvider(TypeormToken.EntityManager, ArticleRepository)
+  );
+
+  private readonly userMetricRepository = inContainerScope(
+    repositoryProvider(TypeormToken.EntityManager, UserMetricRepository)
   );
 
   private readonly userRankRepositoryProvider = inContainerScope(
@@ -40,6 +45,14 @@ class RepositoryDependencyInitializer implements DependencyInitializer {
       context.containers.context.bind(
         RepositoryToken.ArticleRepository,
         this.articleRepositoryProvider
+      );
+    }
+    if (
+      !context.containers.context.isBound(RepositoryToken.UserMetricRepository)
+    ) {
+      context.containers.context.bind(
+        RepositoryToken.UserMetricRepository,
+        this.userMetricRepository
       );
     }
     if (

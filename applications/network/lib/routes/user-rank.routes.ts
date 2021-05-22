@@ -10,7 +10,7 @@ function userRankRoutes(): Router<never, Context> {
 
   router.prefix("/user-ranks");
 
-  router.get("/:id", camelCase(params()), findUserRank());
+  router.get("/:@user-id", camelCase(params()), findUserRank());
   router.get("/", findUserRanks());
 
   return router;
