@@ -1,6 +1,7 @@
 import { JsonObject } from "@course-design/types";
+import Location from "./location";
 
-interface PlainArticle extends JsonObject {
+interface PlainArticle extends JsonObject, Location {
   id?: string;
 
   address: string;

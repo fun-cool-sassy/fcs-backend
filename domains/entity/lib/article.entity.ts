@@ -8,9 +8,10 @@ import {
 import { Serializable } from "jsonlike";
 import BaseEntity from "./entity";
 import PlainArticle from "./plain-article";
+import Location from "./location";
 
 @Entity({ name: "articles" })
-class Article implements Serializable, BaseEntity {
+class Article implements Serializable, BaseEntity, Location {
   @PrimaryGeneratedColumn()
   id?: string;
 

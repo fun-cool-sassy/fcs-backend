@@ -6,3 +6,5 @@ export { default as User } from "./user.entity";
 
 export { default as PlainArticle } from "./plain-article";
 export { default as Article } from "./article.entity";
+
+export { default as Location } from "./location";
