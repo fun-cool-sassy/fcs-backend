@@ -2,7 +2,11 @@ import { ContainerContext, DependencyInitializer } from "@cheeket/koa";
 import { ParameterizedContext } from "koa";
 import { override } from "@course-design/decorators";
 import { inContainerScope } from "cheeket";
-import { ArticleRepository, UserRepository } from "@fcs/repository";
+import {
+  ArticleRepository,
+  UserRankRepository,
+  UserRepository,
+} from "@fcs/repository";
 
 import State from "../../../state";
 import repositoryProvider from "./repository.provider";
@@ -16,6 +20,10 @@ class RepositoryDependencyInitializer implements DependencyInitializer {
 
   private readonly articleRepositoryProvider = inContainerScope(
     repositoryProvider(TypeormToken.EntityManager, ArticleRepository)
+  );
+
+  private readonly userRankRepositoryProvider = inContainerScope(
+    repositoryProvider(TypeormToken.EntityManager, UserRankRepository)
   );
 
   @override
@@ -32,6 +40,14 @@ class RepositoryDependencyInitializer implements DependencyInitializer {
       context.containers.context.bind(
         RepositoryToken.ArticleRepository,
         this.articleRepositoryProvider
+      );
+    }
+    if (
+      !context.containers.context.isBound(RepositoryToken.UserRankRepository)
+    ) {
+      context.containers.context.bind(
+        RepositoryToken.UserRankRepository,
+        this.userRankRepositoryProvider
       );
     }
   }

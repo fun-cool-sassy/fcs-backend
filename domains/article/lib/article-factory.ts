@@ -1,10 +1,14 @@
 import { Forbidden } from "http-errors";
 import { ArticleRepository } from "@fcs/repository";
 import { Article } from "@fcs/entity";
+import { Broadcaster, ResourceEvent } from "@fcs/broadcast";
 import ArticleCreateForm from "./article-create-form";
 
 class ArticleFactory {
-  constructor(private readonly articleRepository: ArticleRepository) {}
+  constructor(
+    private readonly articleRepository: ArticleRepository,
+    private readonly broadcaster: Broadcaster
+  ) {}
 
   async create(form: ArticleCreateForm): Promise<Article> {
     const article = new Article();
@@ -16,7 +20,12 @@ class ArticleFactory {
     }
     article.ownerId = owner.id;
 
-    return this.articleRepository.save(article);
+    const saved: Article = await this.articleRepository.save(article);
+    this.broadcaster.broadcast(
+      new ResourceEvent("create", `/articles/${saved.id}`)
+    );
+
+    return saved;
   }
 }
 

@@ -8,3 +8,5 @@ export { default as PlainArticle } from "./plain-article";
 export { default as Article } from "./article.entity";
 
 export { default as Location } from "./location";
+
+export { default as UserRank } from "./user-rank";
