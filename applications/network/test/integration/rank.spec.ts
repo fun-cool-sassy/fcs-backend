@@ -25,9 +25,9 @@ describe("GET /user-ranks/@:user-id", () => {
       .set("Authorization", authorization)
       .expect(200);
 
-    const ranks = camelCase(result.body) as UserRank;
+    const rank = camelCase(result.body) as UserRank;
 
-    expect(ranks).not.toBeUndefined();
+    expect(rank).not.toBeUndefined();
   });
 });
 
@@ -43,7 +43,6 @@ describe("GET /user-ranks", () => {
       .expect(200);
 
     const ranks = camelCase(result.body) as UserRank[];
-
     expect(ranks).not.toBeUndefined();
   });
 });
