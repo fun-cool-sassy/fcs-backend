@@ -38,7 +38,7 @@ class ConfigurationProvider {
     };
 
     this.config = {
-      port: config.port ?? envConfig.port,
+      port: envConfig.port ?? config.port,
       container: config.container,
       database: {
         ...defaultDatabaseConfig,
