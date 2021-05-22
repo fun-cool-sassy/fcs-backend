@@ -12,7 +12,7 @@ class UserRepository extends Repository<User> {
     return this.findOne({ username });
   }
 
-  findOneByUsernameOfFail(username: string): Promise<User> {
+  findOneByUsernameOrFail(username: string): Promise<User> {
     return this.findOneOrFail({ username });
   }
 }

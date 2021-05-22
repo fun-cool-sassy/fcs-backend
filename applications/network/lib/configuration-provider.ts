@@ -24,7 +24,7 @@ class ConfigurationProvider {
 
       port: 5432,
 
-      database: path.join(__dirname, `../tmp/${uniqid()}`),
+      database: path.join(__dirname, `../tmp/${uniqid()}.txt`),
 
       dropSchema: false,
 
@@ -32,7 +32,7 @@ class ConfigurationProvider {
 
       synchronize: false,
 
-      logging: "all",
+      logging: false,
 
       namingStrategy: new SnakeNamingStrategy(),
     };
@@ -47,11 +47,11 @@ class ConfigurationProvider {
       } as ApplicationConfiguration["database"],
       auth: {
         passwordSecret:
-          config.auth?.passwordSecret ??
           envConfig.auth?.passwordSecret ??
+          config.auth?.passwordSecret ??
           uniqid(),
         jwtSecret:
-          config.auth?.jwtSecret ?? envConfig.auth?.jwtSecret ?? uniqid(),
+          envConfig.auth?.jwtSecret ?? config.auth?.jwtSecret ?? uniqid(),
       },
     };
   }

@@ -18,6 +18,7 @@ import {
   auth,
   AuthConfiguration,
   logger,
+  metric,
   repository,
   socketIo,
   typeorm,
@@ -46,6 +47,7 @@ async function bootstrap(config: ApplicationConfiguration): Promise<Server> {
   application.use(socketIo());
 
   application.use(repository());
+  application.use(metric());
   application.use(auth(config.auth));
   application.use(article());
 

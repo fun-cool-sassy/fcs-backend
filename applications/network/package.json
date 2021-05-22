@@ -27,6 +27,7 @@
     "@fcs/auth": "^1.0.0",
     "@fcs/broadcast": "^1.0.0",
     "@fcs/entity": "^1.0.0",
+    "@fcs/metric": "^1.0.0",
     "@fcs/repository": "^1.0.0",
     "cheeket": "^2.3.8",
     "clean-deep": "^3.4.0",

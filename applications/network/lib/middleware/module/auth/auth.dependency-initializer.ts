@@ -10,6 +10,7 @@ import { RepositoryToken } from "../repository";
 import authenticatorProvider from "./authenticator.provider";
 import passwordEncoderProvider from "./password-encoder.provider";
 import userFactoryProvider from "./user-factory.provider";
+import { MetricToken } from "../metric";
 
 export interface AuthConfiguration {
   passwordSecret: string;
@@ -30,7 +31,8 @@ class AuthDependencyInitializer implements DependencyInitializer {
     this.userFactoryProvider = inContainerScope(
       userFactoryProvider(
         RepositoryToken.UserRepository,
-        AuthToken.PasswordEncoder
+        AuthToken.PasswordEncoder,
+        MetricToken.UserMetricUpdater
       )
     );
     this.authenticatorProvider = inContainerScope(
