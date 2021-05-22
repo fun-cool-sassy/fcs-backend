@@ -3,13 +3,14 @@ name: Main CI
 on:
   push:
     branches:
-      - 'feature/deploy'
+      - feature/deploy
 
 jobs:
   deploy-staging:
     runs-on: ubuntu-20.04
 
-    needs: 'test'
+    needs:
+      - test
 
     steps:
       - name: Zip project

@@ -1,14 +1,16 @@
+name: Test and deploy to staging
+
 on:
   push:
     branches:
-      - 'develop'
+      - develop
 
 jobs:
   deploy-staging:
-    needs: 'test'
+    runs-on: ubuntu-20.04
 
-    runs-on: ubuntu-latest
-
+    needs:
+      - test
     steps:
       - name: Zip project
         run: zip -r deploy.zip . -x '*.git*'
