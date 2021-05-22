@@ -8,6 +8,9 @@ import { normalizeQuery } from "../../../util";
 
 function findArticles(): Application.Middleware<State, Context> {
   return async (context, next) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    context.state.user;
+
     const articleRepository = await context.resolve(
       RepositoryToken.ArticleRepository
     );

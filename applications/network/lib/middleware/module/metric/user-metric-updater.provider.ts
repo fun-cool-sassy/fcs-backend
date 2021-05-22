@@ -1,7 +1,5 @@
 import { interfaces } from "cheeket";
-import { ArticleRepository, UserMetricRepository } from "@fcs/repository";
-import { ArticleFactory } from "@fcs/article";
-import { Broadcaster } from "@fcs/broadcast";
+import { UserMetricRepository } from "@fcs/repository";
 import { UserMetricUpdater } from "@fcs/metric";
 
 function userMetricUpdaterProvider(
