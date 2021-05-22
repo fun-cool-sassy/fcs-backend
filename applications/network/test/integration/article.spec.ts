@@ -42,7 +42,7 @@ describe("POST /articles", () => {
     expect(article.contentId).toEqual(createForm.contentId);
     expect(article.targets).toEqual(createForm.targets);
     expect(article.problems).toEqual(createForm.problems);
-    expect(article.detail).toBeUndefined();
+    expect(article.detail).toBeNull();
     expect(article.resolved).toBeFalsy();
     expect(article.createdAt).not.toBeUndefined();
     expect(article.updatedAt).not.toBeUndefined();
