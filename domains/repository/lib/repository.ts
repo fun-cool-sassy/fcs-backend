@@ -18,13 +18,13 @@ import { EntityMetadata } from "typeorm/metadata/EntityMetadata";
 import { Entity } from "@fcs/entity";
 
 class Repository<T extends Entity> {
-  private readonly repository: TypeormRepository<T>;
+  protected readonly repository: TypeormRepository<T>;
 
-  private readonly manager: EntityManager;
+  protected readonly manager: EntityManager;
 
-  private readonly metadata: EntityMetadata;
+  protected readonly metadata: EntityMetadata;
 
-  private readonly queryRunner?: QueryRunner;
+  protected readonly queryRunner?: QueryRunner;
 
   constructor(entityManager: EntityManager, target: Type<T>) {
     this.repository = entityManager.getRepository(target);

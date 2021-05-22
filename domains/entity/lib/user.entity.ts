@@ -7,9 +7,10 @@ import {
 } from "typeorm";
 import { Serializable } from "jsonlike";
 import PlainUser from "./plain-user";
+import BaseEntity from "./entity";
 
 @Entity({ name: "users" })
-class User implements Serializable {
+class User implements Serializable, BaseEntity {
   @PrimaryGeneratedColumn()
   id?: string;
 
