@@ -1,8 +1,6 @@
 import supertest from "supertest";
-import {PlainUser, User} from "@fcs/entity";
-import {SignInRequest, SignUpRequest} from "@fcs/auth";
-import uniqid from "uniqid";
-import {camelCase} from "object-change-case";
+import { SignInRequest } from "@fcs/auth";
+import { camelCase } from "object-change-case";
 import createUser from "./create-user";
 
 async function createAuthorization(
@@ -14,14 +12,11 @@ async function createAuthorization(
     password: user.password,
   };
 
-  const result = await request
-    .post("/token")
-    .send(signInRequest)
-    .expect(201);
-  
+  const result = await request.post("/token").send(signInRequest).expect(201);
+
   const token = camelCase(result.body) as Record<string, unknown>;
- 
-  return `${token.type} ${token.accessToken}`
+
+  return `${token.type} ${token.accessToken}`;
 }
 
-export default createAuthorization
+export default createAuthorization;
