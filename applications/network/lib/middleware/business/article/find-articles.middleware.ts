@@ -33,25 +33,20 @@ function findArticles(): Application.Middleware<State, Context> {
     const skip = (finalPage - 1) * finalPerPage;
     const take = finalPerPage;
 
-    function findAndCount(): Promise<[Article[], number]> {
-      if (latitude != null && longitude != null) {
-        const location: Location = {
-          latitude: normalize(latitude, Number) as number,
-          longitude: normalize(longitude, Number) as number,
-        };
-
-        return articleRepository.findAndCountNear(location, finalFar, {
-          skip,
-          take,
-        });
-      }
-      return articleRepository.findAndCount({
-        skip,
-        take,
-      });
+    let location: Location | undefined;
+    if (latitude != null && longitude != null) {
+      location = {
+        latitude: normalize(latitude, Number) as number,
+        longitude: normalize(longitude, Number) as number,
+      };
     }
 
-    const [articles, count] = await findAndCount();
+    const [articles, count] = await articleRepository.findAndCountNear({
+      skip,
+      take,
+      location,
+      far: finalFar,
+    });
 
     context.set("Total-Count", count.toString());
     context.set("Total-Page", Math.ceil(count / finalPage).toString());
