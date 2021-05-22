@@ -17,9 +17,9 @@ function findArticles(): Application.Middleware<State, Context> {
 
     const { perPage, page, latitude, longitude, far } = context.query;
 
-    const finalPerPage = normalizeQuery(perPage, Number) ?? 15;
-    const finalPage = normalizeQuery(page, Number) ?? 0;
-    const finalFar = normalizeQuery(far, Number) ?? 0.001;
+    const finalPerPage = Math.max(normalizeQuery(perPage, Number) ?? 15, 1);
+    const finalPage = Math.max(normalizeQuery(page, Number) ?? 1, 1);
+    const finalFar = Math.max(normalizeQuery(far, Number) ?? 0.001, 0.001);
 
     const skip = (finalPage - 1) * finalPerPage;
     const take = finalPerPage;
