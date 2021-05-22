@@ -14,6 +14,7 @@ import expose from "koa-expose";
 
 import routes from "./routes";
 import {
+  article,
   auth,
   AuthConfiguration,
   logger,
@@ -46,6 +47,7 @@ async function bootstrap(config: ApplicationConfiguration): Promise<Server> {
 
   application.use(repository());
   application.use(auth(config.auth));
+  application.use(article());
 
   application.use(bodyParser());
   application.use(camelCase(query()));

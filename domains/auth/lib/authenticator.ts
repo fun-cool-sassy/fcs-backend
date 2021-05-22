@@ -7,8 +7,6 @@ import PasswordEncoder from "./password-encoder";
 import SignInRequest from "./sign-in-request";
 import Token from "./token";
 
-const authorizationRegExp = /^(\w+) (\w+)$/;
-
 export interface AuthenticateConfiguration {
   secret: string;
 }
@@ -34,13 +32,13 @@ class Authenticator {
   }
 
   async authenticate(authorization: string): Promise<User> {
-    const match = authorization.match(authorizationRegExp);
-    if (match == null) {
+    const tokens = authorization.split(" ");
+    if (tokens.length !== 2) {
       throw new Forbidden("Authorization is invalid.");
     }
 
-    const type = match[1].toLowerCase();
-    const credentials = match[2];
+    const type = tokens[0].toLowerCase();
+    const credentials = tokens[1];
 
     if (type !== "bearer") {
       throw new Forbidden(`Unsupported authorization type ${type}.`);
