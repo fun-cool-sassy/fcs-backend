@@ -10,3 +10,5 @@ export { default as Article } from "./article.entity";
 export { default as Location } from "./location";
 
 export { default as UserRank } from "./user-rank";
+export { default as Rank } from "./rank";
+export { default as UserMetric } from "./user-metric.entity";
