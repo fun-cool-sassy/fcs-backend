@@ -5,4 +5,5 @@ const configProvider = new ConfigurationProvider({
   port: 8080,
   database: {},
 });
-bootstrap(configProvider.get()).then(() => {});
+const config = configProvider.get();
+bootstrap(config).then(() => console.log(config.port));
