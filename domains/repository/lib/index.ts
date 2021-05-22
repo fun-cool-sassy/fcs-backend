@@ -1,2 +1,2 @@
 // eslint-disable-next-line import/prefer-default-export
-export { default as entities } from "./entities";
+export { default as Repository } from "./repository";

@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { LoggerOptions } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 import cleanDeep from "clean-deep";
-import { entities } from "@fcs/database-entity";
+import { entities } from "@fcs/entity";
 import path from "path";
 import uniqid from "uniqid";
 
