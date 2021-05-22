@@ -1,7 +1,7 @@
 import {
   Column,
   CreateDateColumn,
-  Entity,
+  Entity, Index,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
@@ -10,6 +10,7 @@ import PlainUser from "./plain-user";
 import BaseEntity from "./entity";
 
 @Entity({ name: "users" })
+@Index(["username"])
 class User implements Serializable, BaseEntity {
   @PrimaryGeneratedColumn()
   id?: string;
