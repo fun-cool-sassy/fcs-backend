@@ -15,7 +15,7 @@ import { FindManyOptions } from "typeorm/find-options/FindManyOptions";
 import { FindOneOptions } from "typeorm/find-options/FindOneOptions";
 import { EntityMetadata } from "typeorm/metadata/EntityMetadata";
 
-import { Entity } from "../../database-entity";
+import { Entity } from "@fcs/entity";
 
 class Repository<T extends Entity> {
   private readonly repository: TypeormRepository<T>;
