@@ -1,3 +1,4 @@
+import { Type } from "@course-design/types";
 import { EntityManager, Repository as TypeormRepository } from "typeorm";
 import { QueryRunner } from "typeorm/query-runner/QueryRunner";
 import { SelectQueryBuilder } from "typeorm/query-builder/SelectQueryBuilder";
@@ -12,15 +13,25 @@ import { UpdateResult } from "typeorm/query-builder/result/UpdateResult";
 import { DeleteResult } from "typeorm/query-builder/result/DeleteResult";
 import { FindManyOptions } from "typeorm/find-options/FindManyOptions";
 import { FindOneOptions } from "typeorm/find-options/FindOneOptions";
-import { Type } from "@course-design/types";
+import { EntityMetadata } from "typeorm/metadata/EntityMetadata";
 
 import { Entity } from "../../database-entity";
 
 class Repository<T extends Entity> {
   private readonly repository: TypeormRepository<T>;
 
+  private readonly manager: EntityManager;
+
+  private readonly metadata: EntityMetadata;
+
+  private readonly queryRunner?: QueryRunner;
+
   constructor(entityManager: EntityManager, target: Type<T>) {
     this.repository = entityManager.getRepository(target);
+
+    this.manager = this.repository.manager;
+    this.metadata = this.repository.metadata;
+    this.queryRunner = this.repository.queryRunner;
   }
 
   createQueryBuilder(
