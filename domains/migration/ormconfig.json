@@ -1,0 +1,13 @@
+{
+  "type": "postgres",
+  "host": "junction.cy5l1x69q7sz.ap-northeast-2.rds.amazonaws.com",
+  "port": 5432,
+  "username": "postgres",
+  "password": "iambanana",
+  "database": "junction",
+  "entities": ["/Users/siyual.park/Project/junctionX/backend/domains/entity/dist/*.entity.js"],
+  "migrations": ["dist/*.js"],
+  "cli": {
+    "migrationsDir": "lib"
+  }
+}

@@ -7,6 +7,7 @@ async function createRequest(): Promise<supertest.SuperTest<supertest.Test>> {
   const configProvider = new ConfigurationProvider({
     database: {
       synchronize: true,
+      migrations: [],
     },
   });
   const config = configProvider.get();
