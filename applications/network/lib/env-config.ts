@@ -31,7 +31,7 @@ const databaseConfig = {
 
   synchronize:
     process.env.DATABASE_SYNCHRONIZE != null
-      ? Number(process.env.DATABASE_SYNCHRONIZE)
+      ? process.env.DATABASE_SYNCHRONIZE === "true"
       : undefined,
 
   logging:
