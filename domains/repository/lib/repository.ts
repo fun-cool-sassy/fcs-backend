@@ -1,5 +1,11 @@
 import { Type } from "@course-design/types";
-import { EntityManager, Repository as TypeormRepository } from "typeorm";
+import { NotFound, Conflict } from "http-errors";
+import {
+  EntityManager,
+  EntityNotFoundError,
+  QueryFailedError,
+  Repository as TypeormRepository,
+} from "typeorm";
 import { QueryRunner } from "typeorm/query-runner/QueryRunner";
 import { SelectQueryBuilder } from "typeorm/query-builder/SelectQueryBuilder";
 import { DeepPartial } from "typeorm/common/DeepPartial";
@@ -18,13 +24,13 @@ import { EntityMetadata } from "typeorm/metadata/EntityMetadata";
 import { Entity } from "@fcs/entity";
 
 class Repository<T extends Entity> {
-  private readonly repository: TypeormRepository<T>;
+  protected readonly repository: TypeormRepository<T>;
 
-  private readonly manager: EntityManager;
+  protected readonly manager: EntityManager;
 
-  private readonly metadata: EntityMetadata;
+  protected readonly metadata: EntityMetadata;
 
-  private readonly queryRunner?: QueryRunner;
+  protected readonly queryRunner?: QueryRunner;
 
   constructor(entityManager: EntityManager, target: Type<T>) {
     this.repository = entityManager.getRepository(target);
@@ -91,7 +97,7 @@ class Repository<T extends Entity> {
     entity: I,
     options?: SaveOptions
   ): Promise<I & T>;
-  save<I extends DeepPartial<T>>(
+  async save<I extends DeepPartial<T>>(
     entity: I[] | I,
     options?:
       | (SaveOptions & {
@@ -99,7 +105,14 @@ class Repository<T extends Entity> {
         })
       | SaveOptions
   ): Promise<T[] | (I & T)[] | (I & T) | T> {
-    return this.repository.save(entity as never, options) as never;
+    try {
+      return (await this.repository.save(entity as never, options)) as never;
+    } catch (e) {
+      if (e instanceof QueryFailedError) {
+        throw new Conflict(e.message);
+      }
+      throw e;
+    }
   }
 
   remove(entities: T[], options?: RemoveOptions): Promise<T[]>;
@@ -173,10 +186,17 @@ class Repository<T extends Entity> {
     return this.repository.recover(entity as never, options);
   }
 
-  insert(
+  async insert(
     entity: QueryDeepPartialEntity<T> | QueryDeepPartialEntity<T>[]
   ): Promise<InsertResult> {
-    return this.repository.insert(entity);
+    try {
+      return await this.repository.insert(entity);
+    } catch (e) {
+      if (e instanceof QueryFailedError) {
+        throw new Conflict(e.message);
+      }
+      throw e;
+    }
   }
 
   update(
@@ -192,7 +212,14 @@ class Repository<T extends Entity> {
       | FindConditions<T>,
     partialEntity: QueryDeepPartialEntity<T>
   ): Promise<UpdateResult> {
-    return this.repository.update(criteria, partialEntity);
+    try {
+      return this.repository.update(criteria, partialEntity);
+    } catch (e) {
+      if (e instanceof QueryFailedError) {
+        throw new Conflict(e.message);
+      }
+      throw e;
+    }
   }
 
   delete(
@@ -300,7 +327,7 @@ class Repository<T extends Entity> {
     conditions?: FindConditions<T>,
     options?: FindOneOptions<T>
   ): Promise<T>;
-  findOneOrFail(
+  async findOneOrFail(
     criteria?:
       | string
       | number
@@ -310,7 +337,14 @@ class Repository<T extends Entity> {
       | FindConditions<T>,
     options?: FindOneOptions<T>
   ): Promise<T> {
-    return this.repository.findOneOrFail(criteria as never, options);
+    try {
+      return await this.repository.findOneOrFail(criteria as never, options);
+    } catch (e) {
+      if (e instanceof EntityNotFoundError) {
+        throw new NotFound(e.message);
+      }
+      throw e;
+    }
   }
 
   query<O = unknown>(query: string, parameters?: unknown[]): Promise<O> {

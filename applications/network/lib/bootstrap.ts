@@ -14,6 +14,8 @@ import expose from "koa-expose";
 
 import routes from "./routes";
 import {
+  auth,
+  AuthConfiguration,
   logger,
   repository,
   socketIo,
@@ -25,6 +27,7 @@ export interface ApplicationConfiguration {
   port?: number;
   container?: interfaces.Container;
   database: TypeormConfiguration;
+  auth: AuthConfiguration;
 }
 
 async function bootstrap(config: ApplicationConfiguration): Promise<Server> {
@@ -42,6 +45,7 @@ async function bootstrap(config: ApplicationConfiguration): Promise<Server> {
   application.use(socketIo());
 
   application.use(repository());
+  application.use(auth(config.auth));
 
   application.use(bodyParser());
   application.use(camelCase(query()));
