@@ -4,8 +4,8 @@ import { bySchema } from "koa-verify-joi";
 import { request } from "koa-position";
 
 import Context from "../context";
-import {signInRequestSchema, signUpRequestSchema} from "../schema";
-import {createToken, createUser} from "../middleware";
+import { signInRequestSchema } from "../schema";
+import { createToken } from "../middleware";
 
 function tokenRoutes(): Router<never, Context> {
   const router = new Router<never, Context>();
