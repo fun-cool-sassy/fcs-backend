@@ -28,10 +28,10 @@ class ConfigurationProvider {
       auth: {
         passwordSecret:
           config.auth?.passwordSecret ??
-          envConfig.auth.passwordSecret ??
+          envConfig.auth?.passwordSecret ??
           uniqid(),
         jwtSecret:
-          config.auth?.jwtSecret ?? envConfig.auth.jwtSecret ?? uniqid(),
+          config.auth?.jwtSecret ?? envConfig.auth?.jwtSecret ?? uniqid(),
       },
     };
   }
