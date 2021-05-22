@@ -1,7 +1,7 @@
 import Joi from "joi";
 import { ArticleCreateForm } from "@fcs/article";
 
-const articleCreateFormSchema = Joi.object<ArticleCreateForm>({
+const articleCreateFormSchema = Joi.object<Omit<ArticleCreateForm, "owner">>({
   address: Joi.string().required(),
   latitude: Joi.number().required(),
   longitude: Joi.number().required(),

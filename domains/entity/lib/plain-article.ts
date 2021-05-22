@@ -4,6 +4,8 @@ import Location from "./location";
 interface PlainArticle extends JsonObject, Location {
   id?: string;
 
+  ownerId: string;
+
   address: string;
 
   latitude: number;

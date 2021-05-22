@@ -16,6 +16,9 @@ class Article implements Serializable, BaseEntity, Location {
   id?: string;
 
   @Column()
+  ownerId!: string;
+
+  @Column()
   address!: string;
 
   @Column()
@@ -27,16 +30,16 @@ class Article implements Serializable, BaseEntity, Location {
   @Column()
   contentId!: string;
 
-  @Column()
+  @Column({ type: "simple-array" })
   targets!: string[];
 
-  @Column()
+  @Column({ type: "simple-array" })
   problems!: string[];
 
   @Column({ nullable: true })
   detail?: string;
 
-  @Column()
+  @Column({ type: "boolean" })
   resolved = false;
 
   @CreateDateColumn()
@@ -48,6 +51,7 @@ class Article implements Serializable, BaseEntity, Location {
   toJSON(): PlainArticle {
     return {
       id: this.id,
+      ownerId: this.ownerId,
       address: this.address,
       latitude: this.latitude,
       longitude: this.longitude,

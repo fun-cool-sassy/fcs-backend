@@ -1,6 +1,8 @@
-import { Location } from "@fcs/entity";
+import { Location, User } from "@fcs/entity";
 
 interface ArticleCreateForm extends Location {
+  owner: User;
+
   address: string;
 
   latitude: number;

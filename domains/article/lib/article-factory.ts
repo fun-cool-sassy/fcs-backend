@@ -1,3 +1,4 @@
+import { Forbidden } from "http-errors";
 import { ArticleRepository } from "@fcs/repository";
 import { Article } from "@fcs/entity";
 import ArticleCreateForm from "./article-create-form";
@@ -8,7 +9,12 @@ class ArticleFactory {
   async create(form: ArticleCreateForm): Promise<Article> {
     const article = new Article();
 
-    Object.assign(article, form);
+    const { owner, ...others } = form;
+    Object.assign(article, others);
+    if (owner.id == null) {
+      throw new Forbidden("Owner is must defined.");
+    }
+    article.ownerId = owner.id;
 
     return this.articleRepository.save(article);
   }

@@ -14,25 +14,22 @@ function auth(
   config: AuthConfiguration
 ): Application.Middleware<State, Context> {
   return use(new AuthDependencyInitializer(config), async (context, next) => {
-    let authorization = context.headers.Authorization;
-    if (authorization instanceof Array) {
-      // eslint-disable-next-line prefer-destructuring
-      authorization = authorization[0];
-    }
+    const { authorization } = context.headers;
 
+    let user: User;
     if (authorization != null) {
       const authenticator = await context.resolve(AuthToken.Authenticator);
-      const user = await authenticator.authenticate(authorization);
-
-      Object.defineProperty(context.state, "user", {
-        get(): User {
-          if (user == null) {
-            throw new Unauthorized("Authorization is required");
-          }
-          return user;
-        },
-      });
+      user = await authenticator.authenticate(authorization);
     }
+
+    Object.defineProperty(context.state, "user", {
+      get(): User {
+        if (user == null) {
+          throw new Unauthorized("Authorization is required");
+        }
+        return user;
+      },
+    });
 
     await next();
   });
