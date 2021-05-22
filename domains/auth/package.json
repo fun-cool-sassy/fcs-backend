@@ -1,5 +1,5 @@
 {
-  "name": "@fcs/entity",
+  "name": "@fcs/auth",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
@@ -14,11 +14,5 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prepublishOnly": "cross-env NODE_ENV=production npm run build"
-  },
-  "dependencies": {
-    "@course-design/decorators": "^1.1.1",
-    "@course-design/types": "^1.1.3",
-    "jsonlike": "^1.0.0",
-    "typeorm": "^0.2.32"
   }
 }
