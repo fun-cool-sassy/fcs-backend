@@ -1,8 +1,9 @@
 import Application from "koa";
+import { SignInRequest } from "@fcs/auth";
+
 import Context from "../../../context";
 import State from "../../../state";
 import { AuthToken } from "../../module";
-import { SignInRequest } from "../../../schema";
 
 function createToken(): Application.Middleware<State, Context> {
   return async (context, next) => {

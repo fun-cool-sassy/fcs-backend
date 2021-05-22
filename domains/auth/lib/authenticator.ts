@@ -4,6 +4,8 @@ import { UserRepository } from "@fcs/repository";
 import { User } from "@fcs/entity";
 
 import PasswordEncoder from "./password-encoder";
+import SignInRequest from "./sign-in-request";
+import Token from "./token";
 
 const authorizationRegExp = /^(\w+) (\w+)$/;
 
@@ -17,10 +19,7 @@ class Authenticator {
     private readonly passwordEncoder: PasswordEncoder
   ) {}
 
-  async createAccessToken(request: {
-    username: string;
-    password: string;
-  }): Promise<{ value: string; type: string }> {
+  async createAccessToken(request: SignInRequest): Promise<Token> {
     const { username, password } = request;
 
     const user = await this.userRepository.findOneByUsernameOfFail(username);

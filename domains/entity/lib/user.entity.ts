@@ -28,14 +28,6 @@ class User implements Serializable, BaseEntity {
   @UpdateDateColumn()
   updatedAt?: Date;
 
-  static from(plain: { username: string; password: string }): User {
-    const user = new User();
-    user.username = plain.username;
-    user.password = plain.password;
-
-    return user;
-  }
-
   toJSON(): PlainUser {
     return {
       id: this.id,

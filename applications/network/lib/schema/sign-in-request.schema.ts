@@ -1,5 +1,5 @@
 import Joi from "joi";
-import SignInRequest from "./sign-in-request";
+import { SignInRequest } from "@fcs/auth";
 
 const signInRequestSchema = Joi.object<SignInRequest>({
   username: Joi.string().min(4).max(30).required(),
