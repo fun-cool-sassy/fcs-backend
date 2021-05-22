@@ -11,7 +11,7 @@ interface PlainArticle extends JsonObject, Location {
   latitude: number;
   longitude: number;
 
-  contentId: string;
+  contentLocation: string;
 
   targets: string[];
 

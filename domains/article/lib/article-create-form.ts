@@ -8,7 +8,7 @@ interface ArticleCreateForm extends Location {
   latitude: number;
   longitude: number;
 
-  contentId: string;
+  contentLocation: string;
 
   targets: string[];
 

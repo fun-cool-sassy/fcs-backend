@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-class init1621726693087 implements MigrationInterface {
+class Init1621726693087 implements MigrationInterface {
   name = "init1621726693087";
 
   // eslint-disable-next-line class-methods-use-this
@@ -41,7 +41,7 @@ class init1621726693087 implements MigrationInterface {
       `ALTER TABLE "articles" ADD "ownerId" character varying NOT NULL`
     );
     await queryRunner.query(
-      `ALTER TABLE "articles" ADD "contentId" character varying NOT NULL`
+      `ALTER TABLE "articles" ADD "content" character varying NOT NULL`
     );
     await queryRunner.query(
       `ALTER TABLE "articles" ADD "createdAt" TIMESTAMP NOT NULL DEFAULT now()`
@@ -119,7 +119,7 @@ class init1621726693087 implements MigrationInterface {
     );
     await queryRunner.query(`ALTER TABLE "articles" DROP COLUMN "updatedAt"`);
     await queryRunner.query(`ALTER TABLE "articles" DROP COLUMN "createdAt"`);
-    await queryRunner.query(`ALTER TABLE "articles" DROP COLUMN "contentId"`);
+    await queryRunner.query(`ALTER TABLE "articles" DROP COLUMN "content"`);
     await queryRunner.query(`ALTER TABLE "articles" DROP COLUMN "ownerId"`);
     await queryRunner.query(
       `ALTER TABLE "users" ADD "updated_at" TIMESTAMP NOT NULL DEFAULT now()`
@@ -172,4 +172,4 @@ class init1621726693087 implements MigrationInterface {
   }
 }
 
-export default init1621726693087;
+export default Init1621726693087;
