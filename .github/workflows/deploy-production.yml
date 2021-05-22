@@ -3,12 +3,14 @@ name: Main CI
 on:
   push:
     branches:
-#      - master
-#      - main
-      - feature/deploy
+      - master
+      - main
 
 jobs:
   deploy-staging:
+    needs: 'test'
+
+
     runs-on: ubuntu-20.04
 
 
