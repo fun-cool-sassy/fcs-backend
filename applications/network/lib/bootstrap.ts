@@ -47,8 +47,8 @@ async function bootstrap(config: ApplicationConfiguration): Promise<Server> {
   application.use(socketIo());
 
   application.use(repository());
-  application.use(auth(config.auth));
   application.use(metric());
+  application.use(auth(config.auth));
   application.use(article());
 
   application.use(bodyParser());

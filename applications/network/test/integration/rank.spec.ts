@@ -16,12 +16,12 @@ beforeAll(async () => {
   authorization = await createAuthorization(request);
 });
 
-describe("GET /user-ranks/:id", () => {
+describe("GET /user-ranks/@:user-id", () => {
   test("success", async () => {
     const user = await getUser(request, authorization);
 
     const result = await request
-      .get(`/user-ranks/${user.id}`)
+      .get(`/user-ranks/@${user.id}`)
       .set("Authorization", authorization)
       .expect(200);
 

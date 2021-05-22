@@ -13,6 +13,7 @@ function routes(): Router<never, Context> {
 
   router.use(pigPongRoutes().routes());
   router.use(versionRoutes().routes());
+
   router.use(userRoutes().routes());
   router.use(tokenRoutes().routes());
   router.use(articleRoutes().routes());

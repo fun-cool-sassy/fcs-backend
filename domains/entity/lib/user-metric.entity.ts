@@ -9,7 +9,7 @@ import {
 import BaseEntity from "./entity";
 
 @Entity({ name: "user_metrics" })
-@Index(["user_id", "article_count"])
+@Index(["userId", "articleCount"])
 class UserMetric implements BaseEntity {
   @PrimaryGeneratedColumn()
   id?: string;
