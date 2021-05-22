@@ -24,7 +24,7 @@ class ConfigurationProvider {
 
       port: 5432,
 
-      database: path.join(__dirname, `../tmp/${uniqid()}`),
+      database: path.join(__dirname, `../tmp/${uniqid()}.txt`),
 
       dropSchema: false,
 

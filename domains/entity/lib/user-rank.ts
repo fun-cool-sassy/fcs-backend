@@ -1,4 +1,6 @@
-interface UserRank {
+import Rank from "./rank";
+
+interface UserRank extends Rank {
   id: string;
 
   userId: string;

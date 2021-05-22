@@ -1,6 +1,6 @@
 import supertest from "supertest";
 import { camelCase } from "object-change-case";
-import { UserRank } from "@fcs/entity";
+import { ProblemRank, TargetRank, UserRank } from "@fcs/entity";
 
 import createRequest from "../create-request";
 import createAuthorization from "../create-authorization";
@@ -16,18 +16,18 @@ beforeAll(async () => {
   authorization = await createAuthorization(request);
 });
 
-describe("GET /user-ranks/:id", () => {
+describe("GET /user-ranks/@:user-id", () => {
   test("success", async () => {
     const user = await getUser(request, authorization);
 
     const result = await request
-      .get(`/user-ranks/${user.id}`)
+      .get(`/user-ranks/@${user.id}`)
       .set("Authorization", authorization)
       .expect(200);
 
-    const ranks = camelCase(result.body) as UserRank;
+    const rank = camelCase(result.body) as UserRank;
 
-    expect(ranks).not.toBeUndefined();
+    expect(rank).not.toBeUndefined();
   });
 });
 
@@ -43,7 +43,34 @@ describe("GET /user-ranks", () => {
       .expect(200);
 
     const ranks = camelCase(result.body) as UserRank[];
+    expect(ranks).not.toBeUndefined();
+  });
+});
 
+describe("GET /target-ranks", () => {
+  test("success", async () => {
+    await createArticle(request, authorization);
+
+    const result = await request
+      .get(`/target-ranks`)
+      .set("Authorization", authorization)
+      .expect(200);
+
+    const ranks = camelCase(result.body) as TargetRank[];
+    expect(ranks).not.toBeUndefined();
+  });
+});
+
+describe("GET /problem-ranks", () => {
+  test("success", async () => {
+    await createArticle(request, authorization);
+
+    const result = await request
+      .get(`/problem-ranks`)
+      .set("Authorization", authorization)
+      .expect(200);
+
+    const ranks = camelCase(result.body) as ProblemRank[];
     expect(ranks).not.toBeUndefined();
   });
 });

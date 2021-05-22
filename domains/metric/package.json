@@ -1,0 +1,25 @@
+{
+  "name": "@fcs/metric",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist",
+    "compile": "gulp",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "prepublishOnly": "cross-env NODE_ENV=production npm run build"
+  },
+  "dependencies": {
+    "@course-design/types": "^1.1.3",
+    "@fcs/broadcast": "^1.0.0",
+    "@fcs/entity": "^1.0.0",
+    "@fcs/repository": "^1.0.0",
+    "http-errors": "^1.8.0"
+  }
+}

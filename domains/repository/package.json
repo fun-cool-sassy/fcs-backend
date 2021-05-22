@@ -19,7 +19,7 @@
     "@course-design/types": "^1.1.3",
     "@fcs/entity": "^1.0.0",
     "http-errors": "^1.8.0",
-    "typeorm": "^0.2.32",
-    "object-change-case": "^1.0.0"
+    "object-change-case": "^1.0.0",
+    "typeorm": "^0.2.32"
   }
 }

@@ -9,9 +9,9 @@ function findUserRank(): Application.Middleware<State, Context> {
     const userRankRepository = await context.resolve(
       RepositoryToken.UserRankRepository
     );
-    const { id } = context.params;
+    const { userId } = context.params;
 
-    context.body = await userRankRepository.findOne(id);
+    context.body = await userRankRepository.findOneByUserId(userId);
     context.status = 200;
 
     await next();

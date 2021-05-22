@@ -1,13 +1,6 @@
 import { EntityManager } from "typeorm";
-import { Article, User, UserRank } from "@fcs/entity";
+import { UserMetric, UserRank } from "@fcs/entity";
 import { camelCase, snakeCase } from "object-change-case";
-
-function parseRaw(raw: Omit<UserRank, "id">): UserRank {
-  return {
-    id: raw.userId,
-    ...raw,
-  };
-}
 
 class UserRankRepository {
   constructor(private readonly entityManager: EntityManager) {}
@@ -16,43 +9,44 @@ class UserRankRepository {
     const queryBuilder = this.entityManager.createQueryBuilder();
 
     const raw = await queryBuilder
-      .select()
-      .select("user.id", "user_id")
-      .addSelect("COUNT(*)", "article_count")
-      .addSelect("ROW_NUMBER () OVER (ORDER BY COUNT(*) DESC)", "rank")
-      .from(User, "user")
-      .leftJoin(Article, "article", "article.owner_id = user.id")
-      .groupBy("article.owner_id")
-      .orderBy("COUNT(*)", "DESC")
+      .select("user_metrics.id", "id")
+      .addSelect("user_metrics.user_id", "user_id")
+      .addSelect("user_metrics.article_count", "article_count")
+      .addSelect(
+        "ROW_NUMBER () OVER (ORDER BY user_metrics.article_count DESC)",
+        "rank"
+      )
+      .from(UserMetric, "user_metrics")
+      .orderBy("user_metrics.article_count", "DESC")
+      .orderBy("user_metrics.updated_at", "ASC")
       .skip(start - 1)
       .take(size)
       .getRawMany();
 
-    return raw.map((element) =>
-      parseRaw(camelCase({ ...element }) as Omit<UserRank, "id">)
-    );
+    return raw.map((element) => camelCase({ ...element }) as UserRank);
   }
 
-  async findOne(id: string): Promise<UserRank> {
+  async findOneByUserId(userId: string): Promise<UserRank> {
     const queryBuilder = this.entityManager.createQueryBuilder();
 
     const raw = await queryBuilder
-      .select()
-      .select("user.id", "user_id")
-      .addSelect("COUNT(*)", "article_count")
-      .addSelect("ROW_NUMBER () OVER (ORDER BY COUNT(*) DESC)", "rank")
-      .from(User, "user")
-      .leftJoin(Article, "article", "article.owner_id = user.id")
+      .select("user_metrics.id", "id")
+      .addSelect("user_metrics.user_id", "user_id")
+      .addSelect("user_metrics.article_count", "article_count")
+      .addSelect(
+        "ROW_NUMBER () OVER (ORDER BY user_metrics.article_count DESC)",
+        "rank"
+      )
+      .from(UserMetric, "user_metrics")
       .andWhere(
-        "user.id = :user_id",
+        "user_metrics.user_id = :user_id",
         snakeCase({
-          userId: id,
+          userId,
         }) as Record<string, unknown>
       )
-      .groupBy("article.owner_id")
       .getRawOne();
 
-    return parseRaw(camelCase({ ...raw }) as Omit<UserRank, "id">);
+    return camelCase({ ...raw }) as UserRank;
   }
 }
 
