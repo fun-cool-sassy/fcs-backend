@@ -57,7 +57,6 @@ describe("GET /target-ranks", () => {
       .expect(200);
 
     const ranks = camelCase(result.body) as TargetRank[];
-    console.debug(ranks);
     expect(ranks).not.toBeUndefined();
   });
 });
@@ -72,7 +71,6 @@ describe("GET /problem-ranks", () => {
       .expect(200);
 
     const ranks = camelCase(result.body) as ProblemRank[];
-    console.debug(ranks);
     expect(ranks).not.toBeUndefined();
   });
 });

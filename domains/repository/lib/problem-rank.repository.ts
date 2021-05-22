@@ -18,6 +18,7 @@ class ProblemRankRepository {
       )
       .from(ProblemMetric, "problem_metrics")
       .orderBy("problem_metrics.count", "DESC")
+      .orderBy("problem_metrics.updated_at", "ASC")
       .skip(start - 1)
       .take(size)
       .getRawMany();

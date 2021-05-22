@@ -18,6 +18,7 @@ class UserRankRepository {
       )
       .from(UserMetric, "user_metrics")
       .orderBy("user_metrics.article_count", "DESC")
+      .orderBy("user_metrics.updated_at", "ASC")
       .skip(start - 1)
       .take(size)
       .getRawMany();
