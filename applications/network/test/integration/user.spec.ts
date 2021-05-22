@@ -24,6 +24,7 @@ describe("POST /users", () => {
     const json = camelCase(result.body) as PlainUser;
     expect(json.id).not.toBeUndefined();
     expect(json.username).toEqual(signUpRequest.username);
+    expect(json.email).toEqual(signUpRequest.email);
     expect(json.createdAt).not.toBeUndefined();
     expect(json.updatedAt).not.toBeUndefined();
   });
