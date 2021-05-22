@@ -1,7 +1,7 @@
 import { ContainerContext, DependencyInitializer } from "@cheeket/koa";
 import { ParameterizedContext } from "koa";
 import { override } from "@course-design/decorators";
-import { inContainerScope, inSingletonScope, interfaces } from "cheeket";
+import { inSingletonScope, interfaces } from "cheeket";
 import { Connection, ConnectionOptions } from "typeorm";
 import State from "../../../state";
 import connectionProvider from "./connection.provider";
