@@ -9,15 +9,15 @@ jobs:
   deploy-staging:
     runs-on: ubuntu-20.04
 
-    needs:
-      - test
+#    needs:
+#      - test
 
     steps:
       - name: Install zip
         run: sudo apt update && sudo apt install zip unzip -y
 
       - name: Zip project
-        run: zip -r deploy.zip .
+        run: zip -r deploy.zip . -i .
 
       - name: Create version label
         run: echo "VERSION_LABEL=$(date "+%Y-%m-%d")_$(openssl rand -hex 4)" >> $GITHUB_ENV
