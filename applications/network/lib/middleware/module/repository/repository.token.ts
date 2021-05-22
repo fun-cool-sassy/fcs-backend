@@ -1,5 +1,9 @@
 import { interfaces } from "cheeket";
-import { ArticleRepository, UserRepository } from "@fcs/repository";
+import {
+  ArticleRepository,
+  UserRankRepository,
+  UserRepository,
+} from "@fcs/repository";
 
 const RepositoryToken = Object.freeze({
   UserRepository: Symbol(
@@ -8,6 +12,9 @@ const RepositoryToken = Object.freeze({
   ArticleRepository: Symbol(
     "Repository@ArticleRepository"
   ) as interfaces.Token<ArticleRepository>,
+  UserRankRepository: Symbol(
+    "Repository@UserRankRepository"
+  ) as interfaces.Token<UserRankRepository>,
 });
 
 export default RepositoryToken;
