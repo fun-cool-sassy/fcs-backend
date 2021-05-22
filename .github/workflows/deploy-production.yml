@@ -9,8 +9,8 @@ jobs:
   deploy-staging:
     runs-on: ubuntu-20.04
 
-#    needs:
-#      - test
+    needs:
+      - test
 
     steps:
       - name: Install zip
