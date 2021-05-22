@@ -6,10 +6,14 @@ import articleFactoryProvider from "./article-factory.provider";
 import ArticleToken from "./article.token";
 import State from "../../../state";
 import { RepositoryToken } from "../repository";
+import { SocketIoToken } from "../socket-io";
 
 class ArticleDependencyInitializer implements DependencyInitializer {
   private readonly articleFactoryProvider = inContainerScope(
-    articleFactoryProvider(RepositoryToken.ArticleRepository)
+    articleFactoryProvider(
+      RepositoryToken.ArticleRepository,
+      SocketIoToken.Broadcaster
+    )
   );
 
   @override
