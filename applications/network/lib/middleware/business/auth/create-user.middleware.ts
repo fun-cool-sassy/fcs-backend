@@ -7,11 +7,10 @@ import { SignUpRequest } from "../../../schema";
 function createUser(): Application.Middleware<State, Context> {
   return async (context, next) => {
     const userFactory = await context.resolve(AuthToken.UserFactory);
-    const request: SignUpRequest = context.body;
+    const request: SignUpRequest = context.request.body;
 
-    const user = await userFactory.create(request);
-
-    context.body = user;
+    context.body = await userFactory.create(request);
+    context.status = 201;
 
     await next();
   };

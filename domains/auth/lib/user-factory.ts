@@ -13,7 +13,7 @@ class UserFactory {
     const encodedPassword = this.passwordEncoder.encode(password);
     const user = User.from({ username, password: encodedPassword });
 
-    return this.userRepository.create(user);
+    return this.userRepository.save(user);
   }
 }
 

@@ -15,8 +15,8 @@ class RepositoryDependencyInitializer implements DependencyInitializer {
 
   @override
   init(context: ParameterizedContext<State, ContainerContext>): void {
-    if (!context.containers.root.isBound(RepositoryToken.UserRepository)) {
-      context.containers.root.bind(
+    if (!context.containers.context.isBound(RepositoryToken.UserRepository)) {
+      context.containers.context.bind(
         RepositoryToken.UserRepository,
         this.userRepositoryProvider
       );
