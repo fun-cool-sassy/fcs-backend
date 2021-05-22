@@ -1,18 +1,15 @@
+name: Main CI
+
 on:
   push:
     branches:
-      - 'master'
-      - 'main'
-  pull_request:
-    branches:
-      - 'master'
-      - 'main'
+      - 'feature/deploy'
 
 jobs:
   deploy-staging:
-    needs: 'test'
-
     runs-on: ubuntu-20.04
+
+    needs: 'test'
 
     steps:
       - name: Zip project
