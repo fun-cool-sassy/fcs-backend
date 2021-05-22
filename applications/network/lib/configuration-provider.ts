@@ -1,8 +1,9 @@
 import cleanDeep from "clean-deep";
 import uniqid from "uniqid";
+import path from "path";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 import { entities } from "@fcs/entity";
-import path from "path";
+import { migrations, migrationsDir } from "@fcs/migration";
 import { ApplicationConfiguration } from "./bootstrap";
 
 import envConfig from "./env-config";
@@ -29,6 +30,10 @@ class ConfigurationProvider {
       dropSchema: false,
 
       entities,
+
+      migrations,
+
+      migrationsDir,
 
       synchronize: false,
 
