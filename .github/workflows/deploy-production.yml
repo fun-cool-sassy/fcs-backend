@@ -5,7 +5,7 @@ on:
     branches:
 #      - master
 #      - main
-      - features/deploy
+      - feature/deploy
 
 jobs:
   deploy-staging:
