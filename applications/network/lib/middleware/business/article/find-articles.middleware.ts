@@ -52,7 +52,10 @@ function findArticles(): Application.Middleware<State, Context> {
     }
 
     const [articles, count] = await findAndCount();
+
     context.set("Total-Count", count.toString());
+    context.set("Total-Page", Math.ceil(count / finalPage).toString());
+    context.set("Page", finalPage.toString());
 
     context.body = articles;
     context.status = 200;
