@@ -15,6 +15,8 @@ class ArticleDependencyInitializer implements DependencyInitializer {
     articleFactoryProvider(
       RepositoryToken.ArticleRepository,
       MetricToken.UserMetricUpdater,
+      MetricToken.TargetMetricUpdater,
+      MetricToken.ProblemMetricUpdater,
       SocketIoToken.Broadcaster
     )
   );
