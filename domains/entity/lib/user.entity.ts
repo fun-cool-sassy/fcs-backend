@@ -17,10 +17,10 @@ class User implements Serializable, BaseEntity {
   id?: string;
 
   @Column({ unique: true })
-  username: string;
+  username!: string;
 
   @Column()
-  password: string;
+  password!: string;
 
   @CreateDateColumn()
   createdAt?: Date;
@@ -28,9 +28,12 @@ class User implements Serializable, BaseEntity {
   @UpdateDateColumn()
   updatedAt?: Date;
 
-  constructor(user: { username: string; password: string }) {
-    this.username = user.username;
-    this.password = user.password;
+  static from(plain: { username: string; password: string }): User {
+    const user = new User();
+    user.username = plain.username;
+    user.password = plain.password;
+
+    return user;
   }
 
   toJSON(): PlainUser {

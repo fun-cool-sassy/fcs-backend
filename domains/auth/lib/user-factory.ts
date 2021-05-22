@@ -11,7 +11,7 @@ class UserFactory {
   async create(request: { username: string; password: string }): Promise<User> {
     const { username, password } = request;
     const encodedPassword = this.passwordEncoder.encode(password);
-    const user = new User({ username, password: encodedPassword });
+    const user = User.from({ username, password: encodedPassword });
 
     return this.userRepository.create(user);
   }
