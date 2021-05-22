@@ -12,13 +12,13 @@ beforeAll(async () => {
   request = await createRequest();
 });
 
-describe("POST /user", () => {
+describe("POST /users", () => {
   test("success", async () => {
     const signUpRequest: SignUpRequest = {
       username: uniqid(),
       password: uniqid(),
     };
-    const result = await request.post("/user").send(signUpRequest).expect(201);
+    const result = await request.post("/users").send(signUpRequest).expect(201);
 
     const json = camelCase(result.body) as PlainUser;
     expect(json.id).not.toBeUndefined();
@@ -32,7 +32,7 @@ describe("POST /user", () => {
       username: uniqid(),
       password: uniqid(),
     };
-    await request.post("/user").send(signUpRequest).expect(201);
-    await request.post("/user").send(signUpRequest).expect(409);
+    await request.post("/users").send(signUpRequest).expect(201);
+    await request.post("/users").send(signUpRequest).expect(409);
   });
 });

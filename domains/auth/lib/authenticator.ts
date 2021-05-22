@@ -20,7 +20,7 @@ class Authenticator {
   async createAccessToken(request: {
     username: string;
     password: string;
-  }): Promise<string> {
+  }): Promise<{ value: string; type: string }> {
     const { username, password } = request;
 
     const user = await this.userRepository.findOneByUsernameOfFail(username);
@@ -30,7 +30,8 @@ class Authenticator {
       throw new Forbidden("Password is not correct.");
     }
 
-    return jwt.sign({ uid: user.id }, this.config.secret);
+    const token = jwt.sign({ uid: user.id }, this.config.secret);
+    return { value: token, type: "bearer" };
   }
 
   async authenticate(authorization: string): Promise<User> {

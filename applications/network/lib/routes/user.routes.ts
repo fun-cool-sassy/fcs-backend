@@ -10,7 +10,7 @@ import { createUser } from "../middleware";
 function userRoutes(): Router<never, Context> {
   const router = new Router<never, Context>();
 
-  router.prefix("/user");
+  router.prefix("/users");
 
   router.post(
     "/",
