@@ -29,6 +29,6 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_STG }}
           region: ap-northeast-2
           version_label: ${{ env.VERSION_LABEL }}
-          application_name: JunctionX2021
+          application_name: JuctionX2021
           environment_name: production
           deployment_package: deploy.zip
