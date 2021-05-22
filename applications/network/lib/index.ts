@@ -3,6 +3,6 @@ import ConfigurationProvider from "./configuration-provider";
 
 const configProvider = new ConfigurationProvider({
   port: 8080,
-  database: {}
+  database: {},
 });
 bootstrap(configProvider.get()).then(() => {});
