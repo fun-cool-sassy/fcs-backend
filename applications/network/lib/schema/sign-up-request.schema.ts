@@ -3,6 +3,7 @@ import { SignUpRequest } from "@fcs/auth";
 
 const signUpRequestSchema = Joi.object<SignUpRequest>({
   username: Joi.string().min(4).max(30).required(),
+  email: Joi.string().email().required(),
   password: Joi.string().min(4).max(100).required(),
 });
 

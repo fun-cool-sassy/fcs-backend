@@ -19,6 +19,9 @@ class User implements Serializable, BaseEntity {
   @Column({ unique: true })
   username!: string;
 
+  @Column({ unique: true })
+  email!: string;
+
   @Column()
   password!: string;
 
@@ -32,6 +35,7 @@ class User implements Serializable, BaseEntity {
     return {
       id: this.id,
       username: this.username,
+      email: this.email,
       createdAt: this.createdAt?.valueOf(),
       updatedAt: this.updatedAt?.valueOf(),
     };

@@ -1,9 +1,9 @@
 import supertest from "supertest";
 import { camelCase } from "object-change-case";
-
 import uniqid from "uniqid";
+import { SignInRequest, SignUpRequest } from "@fcs/auth";
+
 import createRequest from "../create-request";
-import { SignInRequest, SignUpRequest } from "../../lib/schema";
 
 let request: supertest.SuperTest<supertest.Test>;
 
@@ -15,6 +15,7 @@ describe("POST /token", () => {
   test("success", async () => {
     const signUpRequest: SignUpRequest = {
       username: uniqid(),
+      email: `${uniqid()}@test.com`,
       password: uniqid(),
     };
     const signInRequest: SignInRequest = {
@@ -36,6 +37,7 @@ describe("POST /token", () => {
   test("fail: password is not collect", async () => {
     const signUpRequest: SignUpRequest = {
       username: uniqid(),
+      email: `${uniqid()}@test.com`,
       password: uniqid(),
     };
     const signInRequest: SignInRequest = {

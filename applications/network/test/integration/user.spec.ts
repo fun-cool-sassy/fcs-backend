@@ -1,10 +1,10 @@
 import supertest from "supertest";
 import { camelCase } from "object-change-case";
-
 import uniqid from "uniqid";
 import { PlainUser } from "@fcs/entity";
+import { SignUpRequest } from "@fcs/auth";
+
 import createRequest from "../create-request";
-import { SignUpRequest } from "../../lib/schema";
 
 let request: supertest.SuperTest<supertest.Test>;
 
@@ -16,6 +16,7 @@ describe("POST /users", () => {
   test("success", async () => {
     const signUpRequest: SignUpRequest = {
       username: uniqid(),
+      email: `${uniqid()}@test.com`,
       password: uniqid(),
     };
     const result = await request.post("/users").send(signUpRequest).expect(201);
@@ -30,6 +31,7 @@ describe("POST /users", () => {
   test("fail: duplicate user", async () => {
     const signUpRequest: SignUpRequest = {
       username: uniqid(),
+      email: `${uniqid()}@test.com`,
       password: uniqid(),
     };
     await request.post("/users").send(signUpRequest).expect(201);

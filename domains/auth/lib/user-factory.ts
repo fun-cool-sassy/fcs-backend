@@ -10,11 +10,12 @@ class UserFactory {
   ) {}
 
   async create(request: SignUpRequest): Promise<User> {
-    const { username, password } = request;
+    const { username, email, password } = request;
     const encodedPassword = this.passwordEncoder.encode(password);
 
     const user = new User();
     user.username = username;
+    user.email = email;
     user.password = encodedPassword;
 
     return this.userRepository.save(user);
