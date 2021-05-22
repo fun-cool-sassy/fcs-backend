@@ -6,6 +6,7 @@ import versionRoutes from "./version.routes";
 import userRoutes from "./user.routes";
 import tokenRoutes from "./token.routes";
 import articleRoutes from "./article.routes";
+import userRankRoutes from "./user-rank.routes";
 
 function routes(): Router<never, Context> {
   const router = new Router<never, Context>();
@@ -15,6 +16,7 @@ function routes(): Router<never, Context> {
   router.use(userRoutes().routes());
   router.use(tokenRoutes().routes());
   router.use(articleRoutes().routes());
+  router.use(userRankRoutes().routes());
 
   return router;
 }
