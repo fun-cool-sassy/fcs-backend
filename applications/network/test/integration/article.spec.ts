@@ -6,6 +6,7 @@ import { ArticleCreateForm } from "@fcs/article";
 
 import createRequest from "../create-request";
 import createAuthorization from "../create-authorization";
+import createArticle from "../create-article";
 
 let request: supertest.SuperTest<supertest.Test>;
 let authorization: string;
@@ -45,5 +46,19 @@ describe("POST /articles", () => {
     expect(article.resolved).toBeFalsy();
     expect(article.createdAt).not.toBeUndefined();
     expect(article.updatedAt).not.toBeUndefined();
+  });
+});
+
+describe("GET /articles", () => {
+  test("success: no location", async () => {
+    await createArticle(request, authorization);
+
+    const result = await request
+      .get("/articles")
+      .set("Authorization", authorization)
+      .expect(200);
+
+    const articles = camelCase(result.body) as PlainArticle[];
+    expect(articles.length).not.toBeUndefined();
   });
 });

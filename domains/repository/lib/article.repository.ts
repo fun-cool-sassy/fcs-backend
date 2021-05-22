@@ -1,7 +1,6 @@
 import { Between, EntityManager } from "typeorm";
 import { Article, Location } from "@fcs/entity";
-
-import { FindConditions } from "typeorm/find-options/FindConditions";
+import { FindManyOptions } from "typeorm/find-options/FindManyOptions";
 import Repository from "./repository";
 
 class ArticleRepository extends Repository<Article> {
@@ -12,14 +11,16 @@ class ArticleRepository extends Repository<Article> {
   async findAndCountNear(
     location: Location,
     far: number,
-    conditions?: FindConditions<Article>
+    options?: FindManyOptions<Article>
   ): Promise<[Article[], number]> {
     const { latitude, longitude } = location;
 
     return this.findAndCount({
-      ...conditions,
-      latitude: Between(latitude - far, latitude + far),
-      longitude: Between(longitude - far, longitude + far),
+      ...options,
+      where: {
+        latitude: Between(latitude - far, latitude + far),
+        longitude: Between(longitude - far, longitude + far),
+      },
     });
   }
 }

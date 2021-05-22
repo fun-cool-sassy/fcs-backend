@@ -4,8 +4,8 @@ import { bySchema } from "koa-verify-joi";
 import { request } from "koa-position";
 
 import Context from "../context";
-import { articleCreateFormSchema } from "../schema";
-import { createArticle } from "../middleware";
+import { articleCreateFormSchema, articleQueryFormSchema } from "../schema";
+import { createArticle, findArticles } from "../middleware";
 
 function articleRoutes(): Router<never, Context> {
   const router = new Router<never, Context>();
@@ -16,6 +16,12 @@ function articleRoutes(): Router<never, Context> {
     "/",
     verify(request("body"), bySchema(articleCreateFormSchema)),
     createArticle()
+  );
+
+  router.get(
+    "/",
+    verify(request("query"), bySchema(articleQueryFormSchema)),
+    findArticles()
   );
 
   return router;
