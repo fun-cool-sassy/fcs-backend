@@ -1,4 +1,4 @@
-import {Location} from "@fcs/entity";
+import { Location } from "@fcs/entity";
 
 interface ArticleCreateForm extends Location {
   address: string;
@@ -12,7 +12,7 @@ interface ArticleCreateForm extends Location {
 
   problems: string[];
 
-  detail: string;
+  detail?: string;
 }
 
-export default ArticleCreateForm
+export default ArticleCreateForm;

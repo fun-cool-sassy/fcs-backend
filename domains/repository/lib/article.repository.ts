@@ -9,17 +9,25 @@ class ArticleRepository extends Repository<Article> {
     super(entityManager, Article);
   }
 
-  findNear(
+  async findNear(
     location: Location,
     far: number,
     conditions?: FindConditions<Article>
   ): Promise<Article[]> {
     const { latitude, longitude } = location;
 
-    return this.find({
+    const articles = await this.find({
       ...conditions,
       latitude: Between(latitude - far, latitude + far),
       longitude: Between(longitude - far, longitude + far),
+    });
+
+    const squaredFar = far ** 2;
+    return articles.filter((article) => {
+      const diffOfLatitude = Math.abs(latitude - article.longitude);
+      const diffOfLongitude = Math.abs(longitude - article.longitude);
+
+      return diffOfLatitude ** 2 + diffOfLongitude ** 2 <= squaredFar;
     });
   }
 }

@@ -1,6 +1,6 @@
-import {interfaces} from "cheeket";
-import {ArticleRepository} from "@fcs/repository";
-import {ArticleFactory} from "@fcs/article";
+import { interfaces } from "cheeket";
+import { ArticleRepository } from "@fcs/repository";
+import { ArticleFactory } from "@fcs/article";
 
 function articleFactoryProvider(
   articleRepositoryToken: interfaces.Token<ArticleRepository>

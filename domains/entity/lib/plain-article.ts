@@ -15,7 +15,7 @@ interface PlainArticle extends JsonObject, Location {
 
   problems: string[];
 
-  detail: string;
+  detail?: string;
 
   resolved: boolean;
 

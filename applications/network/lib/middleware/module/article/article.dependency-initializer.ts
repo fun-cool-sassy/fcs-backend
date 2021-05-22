@@ -1,11 +1,11 @@
-import {ContainerContext, DependencyInitializer} from "@cheeket/koa";
-import {ParameterizedContext} from "koa";
-import {override} from "@course-design/decorators";
-import {inContainerScope} from "cheeket";
+import { ContainerContext, DependencyInitializer } from "@cheeket/koa";
+import { ParameterizedContext } from "koa";
+import { override } from "@course-design/decorators";
+import { inContainerScope } from "cheeket";
 import articleFactoryProvider from "./article-factory.provider";
 import ArticleToken from "./article.token";
 import State from "../../../state";
-import {RepositoryToken} from "../repository";
+import { RepositoryToken } from "../repository";
 
 class ArticleDependencyInitializer implements DependencyInitializer {
   private readonly articleFactoryProvider = inContainerScope(

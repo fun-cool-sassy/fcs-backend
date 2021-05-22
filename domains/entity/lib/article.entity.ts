@@ -33,8 +33,8 @@ class Article implements Serializable, BaseEntity, Location {
   @Column()
   problems!: string[];
 
-  @Column()
-  detail!: string;
+  @Column({ nullable: true })
+  detail?: string;
 
   @Column()
   resolved = false;
