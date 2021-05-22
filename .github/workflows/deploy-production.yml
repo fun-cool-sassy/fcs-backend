@@ -3,8 +3,8 @@ name: Main CI
 on:
   push:
     branches:
-      - master
-      - main
+#      - master
+#      - main
       - features/deploy
 
 jobs:
