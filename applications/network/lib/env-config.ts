@@ -7,7 +7,9 @@ import { ApplicationConfiguration } from "./bootstrap";
 dotenv.config();
 
 const databaseConfig = {
-  type: process.env.DATABASE_TYPE,
+  type: process.env.DATABASE_TYPE as
+    | ApplicationConfiguration["database"]["type"]
+    | undefined,
 
   host: process.env.DATABASE_HOST,
 
@@ -24,7 +26,7 @@ const databaseConfig = {
 
   dropSchema:
     process.env.DATABASE_DROP_SCHEMA != null
-      ? Number(process.env.DATABASE_PORT)
+      ? process.env.DATABASE_DROP_SCHEMA === "true"
       : undefined,
 
   entities: [entities],
@@ -36,13 +38,15 @@ const databaseConfig = {
 
   logging:
     process.env.DATABASE_LOGGING != null
-      ? [process.env.DATABASE_LOGGING]
+      ? ([
+          process.env.DATABASE_LOGGING,
+        ] as ApplicationConfiguration["database"]["logging"])
       : undefined,
 };
 
 const envConfig = {
   port: process.env.PORT !== undefined ? Number(process.env.PORT) : undefined,
-  database: databaseConfig as Partial<ApplicationConfiguration["database"]>,
+  database: databaseConfig,
   auth: {
     passwordSecret: process.env.AUTH_PASSWORD_SECRET,
     jwtSecret: process.env.AUTH_JWT_SECRET,
