@@ -23,14 +23,16 @@
     "@cheeket/winston": "^1.0.2",
     "@course-design/decorators": "^1.1.1",
     "@course-design/types": "^1.1.3",
+    "@fcs/article": "^1.0.0",
+    "@fcs/auth": "^1.0.0",
     "@fcs/broadcast": "^1.0.0",
     "@fcs/entity": "^1.0.0",
     "@fcs/repository": "^1.0.0",
-    "@fcs/auth": "^1.0.0",
     "cheeket": "^2.3.8",
     "clean-deep": "^3.4.0",
     "dotenv": "^9.0.0",
     "git-last-commit": "^1.0.0",
+    "http-errors": "^1.8.0",
     "joi": "^17.4.0",
     "jsonlike": "^1.0.0",
     "koa": "^2.13.1",
@@ -52,8 +54,7 @@
     "typeorm": "^0.2.32",
     "typeorm-naming-strategies": "^2.0.0",
     "uniqid": "^5.3.0",
-    "winston": "^3.3.3",
-    "http-errors": "^1.8.0"
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@types/koa": "^2.13.1",
