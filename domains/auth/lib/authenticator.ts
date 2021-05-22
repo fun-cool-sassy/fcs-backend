@@ -1,5 +1,5 @@
 import { Forbidden } from "http-errors";
-import jwt from "jsonwebtoken";
+import jwt, { JsonWebTokenError } from "jsonwebtoken";
 import { UserRepository } from "@fcs/repository";
 import { User } from "@fcs/entity";
 
@@ -46,10 +46,7 @@ class Authenticator {
       throw new Forbidden(`Unsupported authorization type ${type}.`);
     }
 
-    const token = jwt.verify(credentials, this.config.secret) as Record<
-      string,
-      unknown
-    >;
+    const token = this.decodeCredentials(credentials);
 
     const userId = token.uid;
     if (userId == null) {
@@ -57,6 +54,21 @@ class Authenticator {
     }
 
     return this.userRepository.findOneOrFail(userId as string);
+  }
+
+  private decodeCredentials(credentials: string): Record<string, unknown> {
+    try {
+      return jwt.verify(credentials, this.config.secret) as Record<
+        string,
+        unknown
+      >;
+    } catch (e) {
+      if (e instanceof JsonWebTokenError) {
+        throw new Forbidden(`Invalid token.`);
+      }
+
+      throw e;
+    }
   }
 }
 

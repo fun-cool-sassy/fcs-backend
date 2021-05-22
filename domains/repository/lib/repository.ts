@@ -1,5 +1,10 @@
 import { Type } from "@course-design/types";
-import { EntityManager, Repository as TypeormRepository } from "typeorm";
+import { NotFound } from "http-errors";
+import {
+  EntityManager,
+  EntityNotFoundError,
+  Repository as TypeormRepository,
+} from "typeorm";
 import { QueryRunner } from "typeorm/query-runner/QueryRunner";
 import { SelectQueryBuilder } from "typeorm/query-builder/SelectQueryBuilder";
 import { DeepPartial } from "typeorm/common/DeepPartial";
@@ -310,7 +315,14 @@ class Repository<T extends Entity> {
       | FindConditions<T>,
     options?: FindOneOptions<T>
   ): Promise<T> {
-    return this.repository.findOneOrFail(criteria as never, options);
+    try {
+      return this.repository.findOneOrFail(criteria as never, options);
+    } catch (e) {
+      if (e instanceof EntityNotFoundError) {
+        throw new NotFound(e.message);
+      }
+      throw e;
+    }
   }
 
   query<O = unknown>(query: string, parameters?: unknown[]): Promise<O> {

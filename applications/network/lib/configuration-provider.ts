@@ -1,4 +1,5 @@
 import cleanDeep from "clean-deep";
+import uniqid from "uniqid";
 import { ApplicationConfiguration } from "./bootstrap";
 
 import envConfig from "./env-config";
@@ -16,7 +17,7 @@ class ConfigurationProvider {
 
     this.config = {
       port: config.port ?? envConfig.port,
-      container: config.container ?? envConfig.container,
+      container: config.container,
       database:
         config.database != null
           ? ({
@@ -24,6 +25,14 @@ class ConfigurationProvider {
               ...envConfig.database,
             } as ApplicationConfiguration["database"])
           : envConfig.database,
+      auth: {
+        passwordSecret:
+          config.auth?.passwordSecret ??
+          envConfig.auth.passwordSecret ??
+          uniqid(),
+        jwtSecret:
+          config.auth?.jwtSecret ?? envConfig.auth.jwtSecret ?? uniqid(),
+      },
     };
   }
 

@@ -35,10 +35,13 @@ const databaseConfig = {
   namingStrategy: new SnakeNamingStrategy(),
 };
 
-const envConfig: Partial<ApplicationConfiguration> &
-  Pick<ApplicationConfiguration, "database"> = {
+const envConfig = {
   port: process.env.PORT !== undefined ? Number(process.env.PORT) : undefined,
   database: databaseConfig as ApplicationConfiguration["database"],
+  auth: {
+    passwordSecret: process.env.AUTH_PASSWORD_SECRET,
+    jwtSecret: process.env.AUTH_JWT_SECRET,
+  },
 };
 
 export default cleanDeep(envConfig) as typeof envConfig;
