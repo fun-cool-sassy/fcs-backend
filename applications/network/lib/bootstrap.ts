@@ -64,7 +64,7 @@ async function bootstrap(config: ApplicationConfiguration): Promise<Server> {
   application.use(snakeCase(response("body")));
   application.use(expose(query("fields")));
 
-  application.use(cors({ origin: "*" }));
+  application.use(cors());
 
   return application.listen(config.port);
 }
