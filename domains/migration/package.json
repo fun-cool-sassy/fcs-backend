@@ -13,6 +13,7 @@
     "compile": "gulp",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
+    "migration:run": "typeorm migration:run",
     "prepublishOnly": "cross-env NODE_ENV=production npm run build"
   },
   "dependencies": {
