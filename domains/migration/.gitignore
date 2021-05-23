@@ -117,4 +117,4 @@ dist
 
 # intelliJ
 .idea/
-ormconfig.json
+ormconfig.js
