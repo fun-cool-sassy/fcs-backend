@@ -12,7 +12,7 @@ async function createArticle(
     address: uniqid(),
     latitude: 0,
     longitude: 0,
-    contentId: uniqid(),
+    contentLocation: `https://${uniqid()}.com`,
     targets: [uniqid()],
     problems: [uniqid()],
   };

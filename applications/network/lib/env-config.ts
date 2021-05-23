@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 import cleanDeep from "clean-deep";
-import { entities } from "@fcs/entity";
 
 import { ApplicationConfiguration } from "./bootstrap";
 
@@ -28,8 +27,6 @@ const databaseConfig = {
     process.env.DATABASE_DROP_SCHEMA != null
       ? process.env.DATABASE_DROP_SCHEMA === "true"
       : undefined,
-
-  entities: [entities],
 
   synchronize:
     process.env.DATABASE_SYNCHRONIZE != null

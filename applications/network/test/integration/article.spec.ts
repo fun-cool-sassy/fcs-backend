@@ -22,7 +22,7 @@ describe("POST /articles", () => {
       address: uniqid(),
       latitude: 0,
       longitude: 0,
-      contentId: uniqid(),
+      contentLocation: `https://${uniqid()}.com`,
       targets: [uniqid()],
       problems: [uniqid()],
     };
@@ -39,7 +39,7 @@ describe("POST /articles", () => {
     expect(article.address).toEqual(createForm.address);
     expect(article.latitude).toEqual(createForm.latitude);
     expect(article.longitude).toEqual(createForm.longitude);
-    expect(article.contentId).toEqual(createForm.contentId);
+    expect(article.contentLocation).toEqual(createForm.contentLocation);
     expect(article.targets).toEqual(createForm.targets);
     expect(article.problems).toEqual(createForm.problems);
     expect(article.detail).toBeNull();

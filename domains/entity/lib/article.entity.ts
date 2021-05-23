@@ -28,7 +28,7 @@ class Article implements Serializable, BaseEntity, Location {
   longitude!: number;
 
   @Column()
-  contentId!: string;
+  contentLocation!: string;
 
   @Column({ type: "simple-array" })
   targets!: string[];
@@ -55,7 +55,7 @@ class Article implements Serializable, BaseEntity, Location {
       address: this.address,
       latitude: this.latitude,
       longitude: this.longitude,
-      contentId: this.contentId,
+      contentLocation: this.contentLocation,
       targets: this.targets,
       problems: this.problems,
       detail: this.detail,
