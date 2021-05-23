@@ -1,5 +1,5 @@
 import { EntityManager } from "typeorm";
-import { UserMetric, UserRank } from "@fcs/entity";
+import { User, UserMetric, UserRank } from "@fcs/entity";
 import { camelCase, snakeCase } from "object-change-case";
 
 class UserRankRepository {
@@ -11,12 +11,14 @@ class UserRankRepository {
     const raw = await queryBuilder
       .select("user_metrics.id", "id")
       .addSelect("user_metrics.user_id", "user_id")
+      .addSelect("users.username", "username")
       .addSelect("user_metrics.article_count", "article_count")
       .addSelect(
         "ROW_NUMBER () OVER (ORDER BY user_metrics.article_count DESC)",
         "rank"
       )
       .from(UserMetric, "user_metrics")
+      .leftJoin(User, "users", "users.id = user_metrics.user_id")
       .orderBy("user_metrics.article_count", "DESC")
       .addOrderBy("user_metrics.updated_at", "DESC")
       .skip(start - 1)
@@ -32,12 +34,14 @@ class UserRankRepository {
     const raw = await queryBuilder
       .select("user_metrics.id", "id")
       .addSelect("user_metrics.user_id", "user_id")
+      .addSelect("users.username", "username")
       .addSelect("user_metrics.article_count", "article_count")
       .addSelect(
         "ROW_NUMBER () OVER (ORDER BY user_metrics.article_count DESC)",
         "rank"
       )
       .from(UserMetric, "user_metrics")
+      .leftJoin(User, "users", "users.id = user_metrics.user_id")
       .andWhere(
         "user_metrics.user_id = :user_id",
         snakeCase({

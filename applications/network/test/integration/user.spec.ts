@@ -6,6 +6,7 @@ import { SignUpRequest } from "@fcs/auth";
 
 import createRequest from "../create-request";
 import createAuthorization from "../create-authorization";
+import createUser from "../create-user";
 
 let request: supertest.SuperTest<supertest.Test>;
 
@@ -38,6 +39,25 @@ describe("POST /users", () => {
     };
     await request.post("/users").send(signUpRequest).expect(201);
     await request.post("/users").send(signUpRequest).expect(409);
+  });
+});
+
+describe("GET /users/:id", () => {
+  test("success", async () => {
+    const authorization = await createAuthorization(request);
+    const user = await createUser(request);
+
+    const result = await request
+      .get(`/users/${user.id}`)
+      .set("Authorization", authorization)
+      .expect(200);
+
+    const json = camelCase(result.body) as PlainUser;
+    expect(json.id).toEqual(user.id);
+    expect(json.username).toEqual(user.username);
+    expect(json.email).toEqual(user.email);
+    expect(json.createdAt).not.toBeUndefined();
+    expect(json.updatedAt).not.toBeUndefined();
   });
 });
 
