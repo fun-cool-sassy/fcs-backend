@@ -1,6 +1,7 @@
 import Router from "koa-router";
 import Context from "../context";
 
+import { empty } from "../middleware";
 import pigPongRoutes from "./ping-pong.routes";
 import versionRoutes from "./version.routes";
 import userRoutes from "./user.routes";
@@ -12,6 +13,8 @@ import problemRankRoutes from "./problem-rank.routes";
 
 function routes(): Router<never, Context> {
   const router = new Router<never, Context>();
+
+  router.get("/", empty());
 
   router.use(pigPongRoutes().routes());
   router.use(versionRoutes().routes());
