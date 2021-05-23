@@ -17,8 +17,8 @@ class TargetRankRepository {
         "rank"
       )
       .from(TargetMetric, "target_metrics")
-      .orderBy("target_metrics.count", "DESC")
-      .addOrderBy("target_metrics.updated_at", "DESC")
+      .orderBy("target_metrics.updated_at", "DESC")
+      .addOrderBy("target_metrics.count", "DESC")
       .skip(start - 1)
       .take(size)
       .getRawMany();

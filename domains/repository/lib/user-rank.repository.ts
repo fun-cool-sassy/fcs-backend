@@ -19,8 +19,8 @@ class UserRankRepository {
       )
       .from(UserMetric, "user_metrics")
       .leftJoin(User, "users", "users.id = user_metrics.user_id")
-      .orderBy("user_metrics.article_count", "DESC")
-      .addOrderBy("user_metrics.updated_at", "DESC")
+      .orderBy("user_metrics.updated_at", "DESC")
+      .addOrderBy("user_metrics.article_count", "DESC")
       .skip(start - 1)
       .take(size)
       .getRawMany();
