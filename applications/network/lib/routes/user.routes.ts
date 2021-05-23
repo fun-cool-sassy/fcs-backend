@@ -7,7 +7,6 @@ import { camelCase } from "koa-change-case";
 import Context from "../context";
 import { signUpRequestSchema } from "../schema";
 import { createUser, findUser } from "../middleware";
-import findSignInUser from "../middleware/business/auth/find-sign-in-user.middleware";
 
 function userRoutes(): Router<never, Context> {
   const router = new Router<never, Context>();
@@ -19,7 +18,6 @@ function userRoutes(): Router<never, Context> {
     verify(request("body"), bySchema(signUpRequestSchema)),
     createUser()
   );
-  router.get("/self", findSignInUser());
   router.get("/:id", camelCase(params()), findUser());
 
   return router;
