@@ -5,6 +5,8 @@ interface UserRank extends Rank {
 
   userId: string;
 
+  username: string;
+
   rank: number;
 
   articleCount: number;

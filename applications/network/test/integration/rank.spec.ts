@@ -26,7 +26,6 @@ describe("GET /user-ranks/@:user-id", () => {
       .expect(200);
 
     const rank = camelCase(result.body) as UserRank;
-
     expect(rank).not.toBeUndefined();
   });
 });
