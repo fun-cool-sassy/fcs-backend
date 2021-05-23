@@ -38,6 +38,8 @@ async function bootstrap(config: ApplicationConfiguration): Promise<Server> {
 
   koaQs(application);
 
+  application.use(cors());
+
   application.use(requestId());
 
   const rootContainer = config.container ?? new Container();
@@ -63,8 +65,6 @@ async function bootstrap(config: ApplicationConfiguration): Promise<Server> {
   application.use(serialize(response("body")));
   application.use(snakeCase(response("body")));
   application.use(expose(query("fields")));
-
-  application.use(cors());
 
   return application.listen(config.port);
 }
