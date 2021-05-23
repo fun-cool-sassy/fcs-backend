@@ -21,10 +21,10 @@ class Article implements Serializable, BaseEntity, Location {
   @Column()
   address!: string;
 
-  @Column()
+  @Column({ type: "double precision" })
   latitude!: number;
 
-  @Column()
+  @Column({ type: "double precision" })
   longitude!: number;
 
   @Column()
