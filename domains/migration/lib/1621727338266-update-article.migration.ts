@@ -13,7 +13,9 @@ class UpdateArticle1621727338266 implements MigrationInterface {
 
   // eslint-disable-next-line class-methods-use-this
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`ALTER TABLE "articles" DROP COLUMN "content_location"`);
+    await queryRunner.query(
+      `ALTER TABLE "articles" DROP COLUMN "content_location"`
+    );
     await queryRunner.query(
       `ALTER TABLE "articles" ADD "content_id" character varying NOT NULL`
     );
