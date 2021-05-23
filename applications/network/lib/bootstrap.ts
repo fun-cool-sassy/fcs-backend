@@ -11,6 +11,7 @@ import { query, request, response } from "koa-position";
 import requestId from "koa-requestid";
 import serialize from "koa-serialize";
 import expose from "koa-expose";
+import cors from "@koa/cors";
 
 import routes from "./routes";
 import {
@@ -62,6 +63,8 @@ async function bootstrap(config: ApplicationConfiguration): Promise<Server> {
   application.use(serialize(response("body")));
   application.use(snakeCase(response("body")));
   application.use(expose(query("fields")));
+
+  application.use(cors({ origin: "*" }));
 
   return application.listen(config.port);
 }
