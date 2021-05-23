@@ -37,6 +37,9 @@ function findArticles(): Application.Middleware<State, Context> {
       take,
       location,
       far: finalFar,
+      order: {
+        updatedAt: "DESC",
+      },
     });
 
     context.set("Total-Count", count.toString());
